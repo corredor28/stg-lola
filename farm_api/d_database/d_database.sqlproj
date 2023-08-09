@@ -65,6 +65,7 @@
     <None Include="Scripts\04_insert_5000_animals.sql" />
     <None Include="Scripts\05_list_animals.sql" />
     <None Include="Scripts\06_list_quantity.sql" />
+    <None Include="d_database.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\02_create_animal_table.sql" />
