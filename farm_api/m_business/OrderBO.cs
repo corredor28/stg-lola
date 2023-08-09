@@ -21,9 +21,7 @@ namespace m_business
             int totalQuantity = 0;
             decimal listPrice = 0;
             decimal discount = 0;
-            decimal freight = 0;
-
-            foreach (var item in items) 
+            foreach (var item in items)
             {
                 // It is not allowed to duplicate the animal in the Order. If you identify the duplicate animal,
                 // the API should return an error message displaying the reason.
@@ -49,7 +47,7 @@ namespace m_business
 
                 // If the customer adds an animal with a quantity greater than 50 in the cart,
                 // we must apply a 5% discount on the value of this animal. 
-                if (item.Quantity > 50) 
+                if (item.Quantity > 50)
                 {
                     item.Discount = item.UnitPrice * 0.05m;
                 }
@@ -70,6 +68,7 @@ namespace m_business
 
             // If the customer buys more than 300 animals in the order, the freight value must be free,
             // otherwise it will charge $1,000.00 for freight.
+            decimal freight;
             if (totalQuantity > 300)
             {
                 freight = 0;
@@ -88,7 +87,7 @@ namespace m_business
                 NetPrice = listPrice - discount + freight
             };
 
-            await _orderDA.Create(order);
+            order.OrderId = await _orderDA.Create(order);
 
             return order;
         }

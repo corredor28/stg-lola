@@ -5,6 +5,6 @@ namespace h_data.DataAccessInterfaces
 {
     public interface IOrderDA
     {
-        public Task Create(Order order);
+        public Task<int> Create(Order order);
     }
 }

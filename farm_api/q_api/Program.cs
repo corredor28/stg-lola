@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<STGContext>();
 builder.Services.AddScoped<IAnimalDA, AnimalDA>();
+builder.Services.AddScoped<IOrderDA, OrderDA>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -13,9 +13,10 @@ namespace h_data.DataAccess
             _context = context;
         }
 
-        public async Task Create(Order order)
+        public async Task<int> Create(Order order)
         {
             string sqlQuery = "INSERT Order (TotalQuantity, ListPrice, Freight, Discount, NetPrice) " +
+                                "OUTPUT INSERTED.OrderId" +
                                 "VALUES (@TotalQuantity, @ListPrice, @Freight, @Discount, @NetPrice)";
             var parameters = new DynamicParameters();
             parameters.Add("TotalQuantity", order.TotalQuantity, DbType.Int32);
@@ -25,8 +26,8 @@ namespace h_data.DataAccess
             parameters.Add("NetPrice", order.NetPrice, DbType.Decimal);
 
             using var connection = _context.CreateConnection();
-            var r = await connection.ExecuteAsync(sqlQuery, parameters);
-            Console.Write(r);
+            var newId = await connection.QuerySingleAsync<int>(sqlQuery, parameters);
+            return newId;
         }
     }
 }
