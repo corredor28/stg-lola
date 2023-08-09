@@ -1,10 +1,11 @@
 ﻿using h_data.DataAccessInterfaces;
 using h_data.Entities;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace q_api.Controllers
 {
+    [Authorize]
     [Route("[controller]")]
     [ApiController]
     public class AnimalController : ControllerBase

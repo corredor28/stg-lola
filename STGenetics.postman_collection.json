@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "4a92b6d5-c041-4d26-bd94-7c090d83aec9",
+		"name": "STGenetics",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3034899"
+	},
+	"item": [
+		{
+			"name": "animal",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Lolo12\",\r\n    \"Breed\": \"Green\",\r\n    \"BirthDate\": \"2021-09-17T10:02:06\",\r\n    \"Sex\": \"Male\",\r\n    \"Price\": 521.23,\r\n    \"Status\": \"Active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7093/animal",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7093",
+							"path": [
+								"animal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Lolo1892\",\r\n    \"Breed\": \"LightGreen\",\r\n    \"BirthDate\": \"2019-09-17T10:02:06\",\r\n    \"Sex\": \"Male\",\r\n    \"Price\": 544.12,\r\n    \"Status\": \"Active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7093/animal/5004",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7093",
+							"path": [
+								"animal",
+								"5004"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7093/animal/5004",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7093",
+							"path": [
+								"animal",
+								"5004"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7093/animal/filter?animalId=5005",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7093",
+							"path": [
+								"animal",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Lolo12",
+									"disabled": true
+								},
+								{
+									"key": "sex",
+									"value": "Male",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "Active",
+									"disabled": true
+								},
+								{
+									"key": "animalId",
+									"value": "5005"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKV1RTZXJ2aWNlQWNjZXNzVG9rZW4iLCJqdGkiOiIzNzlkMzVkOS04YzMyLTQyZDQtYWZjMy0zZWIwNTllYmRlYmIiLCJpYXQiOiI5LzA4LzIwMjMgNTozODozNCBhLsKgbS4iLCJVc2VyTmFtZSI6InRlc3RlcjEiLCJleHAiOjE2OTE1NjAxMTQsImlzcyI6IkpXVEF1dGhlbnRpY2F0aW9uU2VydmVyIiwiYXVkIjoiSldUU2VydmljZVBvc3RtYW5DbGllbnQifQ.x5HGBjX1TGmg0HDYdviH9_lah4N202jYRwoPi_hOvKY",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"UserName\": \"tester1\",\r\n    \"Password\": \"qwer1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7093/token",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7093",
+					"path": [
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
