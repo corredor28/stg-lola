@@ -56,7 +56,7 @@ namespace h_data.DataAccess
             await connection.ExecuteAsync(query, new { AnimalId = animalId });
         }
 
-        public async Task<IEnumerable<Animal>> Filter(int? animalId, string? name, string? sex, string? status)
+        public async Task<IEnumerable<Animal>> Filter(int? animalId = null, string? name = null, string? sex = null, string? status = null)
         {
             string sqlQuery = "SELECT * FROM Animal " +
                 "WHERE (@AnimalId IS NULL OR AnimalId = @AnimalId)" +

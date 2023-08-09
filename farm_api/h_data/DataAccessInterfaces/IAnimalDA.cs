@@ -8,6 +8,6 @@ namespace h_data.DataAccessInterfaces
         public Task Create(Animal animal);
         public Task Update(Animal animal, int animalId);
         public Task Delete(int animalId);
-        public Task<IEnumerable<Animal>> Filter(int? animalId, string? name, string? sex, string? status);
+        public Task<IEnumerable<Animal>> Filter(int? animalId = null, string? name = null, string? sex = null, string? status = null);
     }
 }
