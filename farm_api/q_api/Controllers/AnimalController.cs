@@ -34,6 +34,44 @@ namespace q_api.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("{animalId}")]
+        public async Task<IActionResult> Update(Animal animal, int animalId)
+        {
+            try
+            {
+                await _animalDA.Update(animal, animalId);
+                return Ok(new
+                {
+                    Message = "Animal updated."
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Route("{animalId}")]
+        public async Task<IActionResult> Delete(int animalId)
+        {
+            try
+            {
+                await _animalDA.Delete(animalId);
+                return Ok(new
+                {
+                    Message = "Animal deleted."
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpGet]
         [Route("filter")]
         public async Task<IActionResult> Filter(int? animalId, string? name, string? sex, string? status)
