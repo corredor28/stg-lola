@@ -15,8 +15,8 @@ namespace h_data.DataAccess
 
         public async Task<int> Create(Order order)
         {
-            string sqlQuery = "INSERT Order (TotalQuantity, ListPrice, Freight, Discount, NetPrice) " +
-                                "OUTPUT INSERTED.OrderId" +
+            string sqlQuery = "INSERT [Order] (TotalQuantity, ListPrice, Freight, Discount, NetPrice) " +
+                                "OUTPUT INSERTED.OrderId " +
                                 "VALUES (@TotalQuantity, @ListPrice, @Freight, @Discount, @NetPrice)";
             var parameters = new DynamicParameters();
             parameters.Add("TotalQuantity", order.TotalQuantity, DbType.Int32);

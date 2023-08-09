@@ -1,11 +1,14 @@
 ﻿using h_data.DataAccessInterfaces;
+using h_data.DTOs;
 using h_data.Entities;
 using m_business;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace q_api.Controllers
 {
+    [Authorize]
     [Route("[controller]")]
     [ApiController]
     public class OrderController : ControllerBase
@@ -20,12 +23,12 @@ namespace q_api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(IEnumerable<OrderItem> items)
+        public async Task<IActionResult> Create(IEnumerable<OrderAnimal> orderAnimals)
         {
             try
             {
                 var orderBO = new OrderBO(_orderDA, _animalDA);
-                var order = await orderBO.Create(items);
+                var order = await orderBO.Create(orderAnimals);
                 return Ok(new
                 {
                     Id = order.OrderId,

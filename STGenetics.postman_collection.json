@@ -128,16 +128,6 @@
 					"response": []
 				}
 			],
-			"auth": {
-				"type": "bearer",
-				"bearer": [
-					{
-						"key": "token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJKV1RTZXJ2aWNlQWNjZXNzVG9rZW4iLCJqdGkiOiIzNzlkMzVkOS04YzMyLTQyZDQtYWZjMy0zZWIwNTllYmRlYmIiLCJpYXQiOiI5LzA4LzIwMjMgNTozODozNCBhLsKgbS4iLCJVc2VyTmFtZSI6InRlc3RlcjEiLCJleHAiOjE2OTE1NjAxMTQsImlzcyI6IkpXVEF1dGhlbnRpY2F0aW9uU2VydmVyIiwiYXVkIjoiSldUU2VydmljZVBvc3RtYW5DbGllbnQifQ.x5HGBjX1TGmg0HDYdviH9_lah4N202jYRwoPi_hOvKY",
-						"type": "string"
-					}
-				]
-			},
 			"event": [
 				{
 					"listen": "prerequest",
@@ -156,6 +146,95 @@
 							""
 						]
 					}
+				}
+			]
+		},
+		{
+			"name": "order",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"AnimalId\": 5006,\r\n        \"Quantity\": 49\r\n    },\r\n    {\r\n        \"AnimalId\": 5007,\r\n        \"Quantity\": 150\r\n    },\r\n    {\r\n        \"AnimalId\": 5008,\r\n        \"Quantity\": 51\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7093/order",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7093",
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create low q",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"AnimalId\": 5006,\r\n        \"Quantity\": 49\r\n    },\r\n    {\r\n        \"AnimalId\": 5007,\r\n        \"Quantity\": 40\r\n    },\r\n    {\r\n        \"AnimalId\": 5008,\r\n        \"Quantity\": 20\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7093/order",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7093",
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create no freight",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"AnimalId\": 5006,\r\n        \"Quantity\": 100\r\n    },\r\n    {\r\n        \"AnimalId\": 5007,\r\n        \"Quantity\": 150\r\n    },\r\n    {\r\n        \"AnimalId\": 5008,\r\n        \"Quantity\": 51\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7093/order",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7093",
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -186,6 +265,79 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"let usersDB = {",
+					"    \"tester1\": \"qwer1234\",",
+					"\t\"tester2\": \"qwer1234\"",
+					"};",
+					"",
+					"let username = pm.request.headers.get(\"username\");",
+					"console.log('user: ' + username);",
+					"if (!username) {",
+					"    username = \"tester1\";",
+					"}",
+					"",
+					"pm.sendRequest({",
+					"    url: 'https://localhost:7093/token',",
+					"    method: 'POST',",
+					"    header: {",
+					"        'Accept': '*/*',",
+					"        'Cache-Control': 'no-cache',",
+					"        'Content-Type': 'application/json'",
+					"    },",
+					"    body: {",
+					"        mode: 'raw',",
+					"        raw: JSON.stringify({",
+					"            'UserName': username,",
+					"            'Password': usersDB[username]",
+					"        }),",
+					"        options: {",
+					"            raw: {",
+					"                language: 'json'",
+					"            }",
+					"        }",
+					"    }",
+					"}, ",
+					"(err, res) => {",
+					"    console.log(res.text());",
+					"    pm.collectionVariables.set(\"token\", res.text());",
+					"    console.log('variable token nueva: ' + pm.collectionVariables.get('token'));",
+					"});",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
 		}
 	]
 }
